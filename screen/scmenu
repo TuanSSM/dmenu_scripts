@@ -1,0 +1,32 @@
+#!/bin/sh
+
+lines="-l 5"
+prompt="Select a screen layout:"
+option1="[1k]"
+option2="[2k]"
+option3="[1k]+[widescreen]"
+option4="[1k]+[widescreen]+[680p]"
+option5="[1k]+[1k]"
+layouts="${option1}\n${option2}\n${option3}\n${option4}\n${option5}"
+
+ask() {
+    choice="$( echo -e $1 | dmenu -i -p "$2" $lines )"
+}
+
+ask "$layouts" "$prompt"
+
+if [ ${choice} == ${option1} ]; then
+    1080p
+elif [ ${choice} == ${option2} ]; then
+    2k
+elif [ ${choice} == ${option3} ]; then
+    2mon
+elif [ ${choice} == ${option4} ]; then
+    3mon
+elif [ ${choice} == ${option5} ]; then
+    2mon_vertical
+fi
+
+nitrogen --restore
+
+exit 0
